@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,13 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/login',[LoginController::class,'index'])->name('authentication.login');
+Route::post('/login',[LoginController::class,'login']);
+
+Route::get('/logout',[LoginController::class,'logout'])->name('authentication.logout');
 
 Route::get('/register',[RegistrationController::class,'index'])->name('authentication.registration');
 Route::post('/register',[RegistrationController::class,'save']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');

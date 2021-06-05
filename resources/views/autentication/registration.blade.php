@@ -39,10 +39,13 @@
                         class="block border border-grey-light w-full p-3 rounded mb-4"
                         name="password"
                         placeholder="Password"/>
+                    @error('password-confirmation')
+                    <div class="xl:text-red-500"> {{$message}} </div>
+                    @enderror
                     <input
                         type="password"
                         class="block border border-grey-light w-full p-3 rounded mb-4"
-                        name="confirm_password"
+                        name="password_confirmation"
                         placeholder="Confirm Password"/>
 
                     <button
@@ -55,7 +58,7 @@
 
             <div class="text-grey-dark mt-6">
                 Already have an account?
-                <a href="#" class="no-underline border-b border-blue text-blue">
+                <a href="{{ route('authentication.login') }}" class="no-underline border-b border-blue text-blue">
                     Log in
                 </a>.
             </div>
