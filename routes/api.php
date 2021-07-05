@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\ReportsController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth.basic')->apiResource('/user', UserController::class);
+Route::middleware('auth.basic')->apiResource('/category', CategoryController::class);
+Route::apiResource('/post', PostController::class);
+Route::get('/reports/most-stared-by-category', [ReportsController::class, 'mostStarredByCategory']);
+

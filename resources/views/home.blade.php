@@ -1,5 +1,5 @@
 @extends('layout')
 
 @section('page')
-    Here home page
+    Here we have home content
 @endsection
