@@ -23,11 +23,19 @@ class UserNotificationController extends Controller
      */
     public function index()
     {
-         return view('subscribe', [
-             'categories' => Category::where('is_active', true)->get()
-         ]);
-    }
+        $notificationsArray = [];
+        $notifications = auth()->user()->notifications()->get();
+        foreach ($notifications as $notification) {
+            array_push($notificationsArray, $notification['category_id']);
+        }
 
+        return view('subscribe', [
+            'categories' => Category::where('is_active', true)->get(),
+            'notifications' => $notificationsArray
+        ]);
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -52,18 +60,21 @@ class UserNotificationController extends Controller
             ]
         );
 
+
         $notifications = auth()->user()->notifications()->get();
+
         if($notifications->isNotEmpty()) {
             $notifications->each->delete();
         }
 
         foreach($request->category_id as $category){
+
             Category::find($category)->UserNotifications()->create([
                 'user_id' => auth()->user()->id
             ]);
         }
 
-        dd('done');
+        return redirect()->route('dashboard');
 
     }
 

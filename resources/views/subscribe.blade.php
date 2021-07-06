@@ -11,11 +11,11 @@
                 @csrf
                 <div class="mb-3 flex justify-between">
                     <label for="category_id">Category</label>
-                    <select multiple="true" value="3" name="category_id[]">
+                    <select multiple="true"  name="category_id[]">
                         @foreach($categories as $category)
-                            <option value="{{ $category['id'] }}">
+                            <option {{ in_array($category['id'], $notifications) ? 'selected' : '' }}  value="{{ $category['id'] }}">
                                 {{ $category['name'] }}
-                            </option>
+                            </option >
                         @endforeach
                     </select>
 
