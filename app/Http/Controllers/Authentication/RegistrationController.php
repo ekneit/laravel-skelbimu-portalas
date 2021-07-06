@@ -33,7 +33,7 @@ class RegistrationController extends Controller
                 'email' => 'required|unique:users|email:rfc,dns',
                 'first_name' => 'required|max:255',
                 'last_name' => 'required|max:255',
-                'phone' => 'required|max:30',
+                'phone' => 'required|unique:users,phone|max:30',
                 'city' => 'required|max:255',
                 'password' => [
                     'required',

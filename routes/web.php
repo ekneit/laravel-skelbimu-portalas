@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostsStarsController;
+use App\Http\Controllers\UserNotificationController;
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Authentication\LogoutController;
 use App\Http\Controllers\Authentication\RegistrationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,5 +53,10 @@ Route::post('/posts/{post}/stars', [PostsStarsController::class, 'store'])
     ->name('posts.stars');
 Route::delete('/posts/{post}/stars', [PostsStarsController::class, 'destroy'])
     ->name('posts.stars');
+
+Route::get('/subscribe', [UserNotificationController::class, 'index'])
+    ->name('subscribe.form');
+Route::post('/subscribe/store', [UserNotificationController::class, 'store'])
+    ->name('subscribe.store');
 
 

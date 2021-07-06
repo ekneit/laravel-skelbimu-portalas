@@ -26,6 +26,7 @@ class UserNotificationFactory extends Factory
         return [
             'user_id' => User::inRandomOrder()->value('id'),
             'category_id' => Category::inRandomOrder()->value('id'),
+
         ];
     }
 }
