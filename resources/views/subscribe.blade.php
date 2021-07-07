@@ -11,7 +11,7 @@
                 @csrf
                 <div class="mb-3 flex justify-between">
                     <label for="category_id">Category</label>
-                    <select multiple="true"  name="category_id[]">
+                    <select multiple="true"  name="notification_id[]">
                         @foreach($categories as $category)
                             <option {{ in_array($category['id'], $notifications) ? 'selected' : '' }}  value="{{ $category['id'] }}">
                                 {{ $category['name'] }}

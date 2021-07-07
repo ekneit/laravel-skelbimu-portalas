@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\UserNotification;
+use App\Service\UserNotificationManager;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
 
 class UserNotificationController extends Controller
 {
-
-    public function __construct() {
+    private $userNotificationManager;
+    public function __construct(UserNotificationManager $userNotificationManager) {
         $this->middleware('auth', ['except' => [
             'index'
         ]]);
+
+        $this->userNotificationManager = $userNotificationManager;
     }
     /**
      * Display a listing of the resource.
@@ -54,25 +57,7 @@ class UserNotificationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,
-            [
-                'category_id' => 'required'
-            ]
-        );
-
-
-        $notifications = auth()->user()->notifications()->get();
-
-        if($notifications->isNotEmpty()) {
-            $notifications->each->delete();
-        }
-
-        foreach($request->category_id as $category){
-
-            Category::find($category)->UserNotifications()->create([
-                'user_id' => auth()->user()->id
-            ]);
-        }
+        $this->userNotificationManager->create($request);
 
         return redirect()->route('dashboard');
 
