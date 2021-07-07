@@ -16,7 +16,6 @@ class UserNotificationManager
             'notification_id' => 'required'
         ]);
 
-
         $notifications = auth()->user()->notifications()->get();
 
         if($notifications->isNotEmpty()) {

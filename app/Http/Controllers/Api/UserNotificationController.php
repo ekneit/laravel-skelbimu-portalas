@@ -22,7 +22,8 @@ class UserNotificationController extends Controller
 
     public function index(): Collection
     {
-        return UserNotification::all();
+        return auth()->user()->notifications()->get();;
+
     }
 
     public function store(Request $request)
